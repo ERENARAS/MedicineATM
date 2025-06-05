@@ -41,5 +41,5 @@ public interface PrescriptionRepository {
      * @param patient Aranacak hasta
      * @return Reçete varsa Optional ile, yoksa Optional.empty() döner
      */
-    Optional<Prescription> findByPatient(Patient patient);
+    Optional<List<Prescription>> findByPatient(Patient patient);
 }

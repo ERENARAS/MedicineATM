@@ -107,21 +107,26 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
 
 
     /**
-     * Verilen hasta adına ait ilk eşleşen reçeteyi döner.
+     * Verilen hasta adına ait reçeteleri dosyadan arar ve varsa tamamını döner.
+     *
+     * Reçeteler hastanın adına göre filtrelenir (isim eşleşmesi, büyük/küçük harfe duyarsız).
+     * Eğer reçete bulunmazsa Optional.empty() döner.
      *
      * @param patient Aranan hastanın nesnesi
-     * @return Reçete varsa döner, yoksa Optional.empty()
+     * @return Bu hastaya ait reçete listesi varsa Optional.of(liste), yoksa Optional.empty()
      */
     @Override
-    public Optional<Prescription> findByPatient(Patient patient) {
+    public Optional<List<Prescription>> findByPatient(Patient patient) {
         List<Prescription> all = getAll();
+        List<Prescription> result = new ArrayList<>();
 
         for (Prescription p : all) {
             if (p.getPatient().getName().equalsIgnoreCase(patient.getName())) {
-                return Optional.of(p);
+                result.add(p);
             }
         }
 
-        return Optional.empty();
+        return result.isEmpty() ? Optional.empty() : Optional.of(result);
     }
+
 }

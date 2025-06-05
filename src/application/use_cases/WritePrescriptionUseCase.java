@@ -14,32 +14,38 @@ import java.util.List;
 public class WritePrescriptionUseCase {
 
     private final PrescriptionRepository repository;
+    private final CheckAllergiesUseCase allergyChecker;
 
     /**
-     * Use case başlatılırken ihtiyaç duyduğu repository dışarıdan verilir.
-     *
-     * @param repository Reçetelerin kaydedileceği repository
+     * Constructor: Use case başlatılırken repository ve alerji kontrolü için gerekli use case enjekte edilir.
      */
-    public WritePrescriptionUseCase(PrescriptionRepository repository) {
+    public WritePrescriptionUseCase(PrescriptionRepository repository, CheckAllergiesUseCase allergyChecker) {
         this.repository = repository;
+        this.allergyChecker = allergyChecker;
     }
 
 
     /**
      * Reçete oluşturma ve kaydetme işlemini yürütür.
+     * öncesinde hastanın alerjisi kontrol edilir yazılmak istenen ilaçlarla
+     * eğer yoksa işlem devam eder
      *
      * @param doctor Reçeteyi yazan doktor
      * @param patient Reçeteyi alacak hasta
      * @param medicines Reçeteye yazılacak ilaçlar
      */
     public void execute(Doctor doctor, Patient patient, List<Medicine> medicines) {
-        // 1. Doctor reçeteyi oluşturur
+
+        for (Medicine med : medicines) {
+            if (allergyChecker.hasAllergy(patient, med)) {
+                throw new IllegalArgumentException("Hasta " + med.getName() + " ilacına alerjiktir.");
+            }
+        }
+
         Prescription prescription = doctor.writePrescription(patient, medicines);
 
-        // 2. Reçete kaydedilir
         repository.save(prescription);
 
-        // 3. Geri bildirim verilir
         System.out.println("Reçete başarıyla kaydedildi.");
         System.out.println(prescription.getInfo());
     }
