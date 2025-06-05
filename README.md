@@ -25,17 +25,18 @@ Veri kalıcılığı gerçek veritabanı yerine `.txt` dosyaları ile sağlanmak
 
 ## 📁 Klasör Açıklamaları
 
-| Klasör                        | Açıklama                                                                                  |
-| ----------------------------- | ----------------------------------------------------------------------------------------- |
-| `domain/entities`             | `User`, `Doctor`, `Patient`, `Medicine`, `Prescription` gibi ana sınıflar burada bulunur. |
-| `domain/interfaces`           | Repository arayüzleri (`UserRepository`, `PrescriptionRepository` vb.) burada yer alır.   |
-| `domain/value_objects`        | `Location`, `QRCode`, `AccessCode` gibi değer nesneleri burada tutulur.                   |
-| `application/use_cases`       | Use Case sınıfları: sistemdeki iş senaryolarını gerçekleştirir.                           |
-| `application/services`        | Uygulama düzeyinde destekleyici servisler (`NotificationService`, `AuthService` vb.)      |
+| Klasör                       | Açıklama                                                                                  |
+| ---------------------------- | ----------------------------------------------------------------------------------------- |
+| `domain/entities`            | `User`, `Doctor`, `Patient`, `Medicine`, `Prescription` gibi ana sınıflar burada bulunur. |
+| `domain/interfaces`          | Repository arayüzleri (`UserRepository`, `PrescriptionRepository` vb.) burada yer alır.   |
+| `domain/value_objects`       | `Location`, `QRCode`, `AccessCode` gibi değer nesneleri burada tutulur.                   |
+| `domain/factory` | `UserFactory`, `DoctorFactory`, `PrescriptionFactory` gibi üretim sınıfları burada yer alır. | 
+| `application/use_cases`      | Use Case sınıfları: sistemdeki iş senaryolarını gerçekleştirir.                           |
+| `application/services`       | Uygulama düzeyinde destekleyici servisler (`NotificationService`, `AuthService` vb.)      |
 | `infrastructure/repositories` | Repository arayüzlerinin `.txt` dosyalarıyla çalışan implementasyonları.                  |
-| `infrastructure/services`     | Dosya sistemi, zaman, dış sistem entegrasyonları ("QR okuma, loglama").                   |
-| `presentation.controllers`    | CLI ya da kullanıcıya yönelik kontrol sınıfları.                                          |
-| `Main.java`                   | Tüm bağımlılıkların bağlandığı ve uygulamanın başlatıldığı yer.                           |
+| `infrastructure/services`    | Dosya sistemi, zaman, dış sistem entegrasyonları ("QR okuma, loglama").                   |
+| `presentation.controllers`   | CLI ya da kullanıcıya yönelik kontrol sınıfları.                                          |
+| `Main.java`                  | Tüm bağımlılıkların bağlandığı ve uygulamanın başlatıldığı yer.                           |
 
 ---
 
