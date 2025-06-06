@@ -125,8 +125,31 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
                 result.add(p);
             }
         }
+        if(result.isEmpty()){
+            return Optional.empty();
+        }
+        else {
+            return Optional.of(result);
+        }
 
-        return result.isEmpty() ? Optional.empty() : Optional.of(result);
+    }
+
+    /**
+     *  ilk olani eger o id sahip prescription varsa onu donecek
+     *  yoksa bos optional deger donecek
+     * @param id Reçete UUID string değeri
+     * @return Optional olarak prescription donecek
+     */
+    @Override
+    public Optional<Prescription> findByID(String id) {
+        List<Prescription> all = getAll();
+        for (Prescription p : all) {
+            if (p.getId().toString().equals(id)) {
+                return Optional.of(p);
+            }
+        }
+
+        return Optional.empty();
     }
 
 }

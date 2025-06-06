@@ -14,6 +14,12 @@ import java.util.List;
 public class Patient implements User {
     private String name;
 
+
+
+    private float amount;
+
+
+
     private List<String> allergicMedicines;
 
 
@@ -33,6 +39,24 @@ public class Patient implements User {
     }
     public void setAllergicMedicines(List<String> allergicMedicines) {
         this.allergicMedicines = allergicMedicines;
+    }
+    public float getAmount() {
+        return amount;
+    }
+   public void setAmount(float amount) {
+        this.amount = amount;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * ilaç alım işleminden sonra ödeme olarak azaltma işlemi
+     *
+     * @param amount azaltılacack miktar
+     */
+    public void decreaseAmount(float amount){
+        this.amount -= amount;
     }
 
 }

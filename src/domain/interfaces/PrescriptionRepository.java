@@ -42,4 +42,12 @@ public interface PrescriptionRepository {
      * @return Reçete varsa Optional ile, yoksa Optional.empty() döner
      */
     Optional<List<Prescription>> findByPatient(Patient patient);
+
+    /**
+     * Reçete ID’sine göre reçete bulur.
+     *
+     * @param id Reçete UUID string değeri
+     * @return Reçete bulunduysa Optional.of(prescription), bulunamadıysa Optional.empty()
+     */
+    Optional<Prescription> findByID(String id);
 }
