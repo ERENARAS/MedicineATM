@@ -4,6 +4,7 @@ import domain.entities.*;
 import domain.interfaces.ATMRepository;
 import domain.interfaces.PrescriptionRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,26 +35,48 @@ public class DispenseMedicineUseCase {
         Optional<Prescription> optionalPrescription = prescriptionRepository.findByID(prescriptionId);
 
         if (optionalPrescription.isEmpty()) {
-            throw new IllegalArgumentException("Reçete bulunamadı: " + prescriptionId);
+            System.out.println("Reçete bulunamadı.");
+            return;
         }
 
         Prescription prescription = optionalPrescription.get();
 
-        // Tutar hesaplanır
-        float amount = atmRepository.getAmount(prescription);
-
-        if (patient.getAmount() < amount) {
-            throw new IllegalStateException("Hasta bakiyesi yetersiz.");
+        String prescription_patient_name = prescription.getPatient().getName();
+        String patient_name = patient.getName();
+        // Hasta uyuşuyor mu?
+        if (!prescription_patient_name.equals(patient_name)) {
+            System.out.println("Reçete bu hastaya ait değil.");
+            return;
         }
 
-        if (!atmRepository.hasStock(prescription)) {
-            throw new IllegalStateException("ATM stoğunda yeterli ilaç yok.");
+        List<Medicine> medicines = prescription.getMedicines();
+        boolean stockAvailable = true;
+
+        // 1. Stok kontrolü
+        for (int i = 0; i < medicines.size(); i++) {
+            Medicine med = medicines.get(i);
+            int stock = atmRepository.getStockMedicine(med);
+            if (stock <= 0) {
+                System.out.println("Stokta bulunmayan ilaç: " + med.getName());
+                stockAvailable = false;
+            }
         }
 
-        // İlaçlar verilir ve bakiye düşürülür
-        atmRepository.dispenseMedicine(prescription);
-        patient.decreaseAmount(amount);
+        if (!stockAvailable) {
+            System.out.println("Bazı ilaçlar stokta yok. Dağıtım iptal edildi.");
+            return;
+        }
 
-        System.out.println("İlaçlar başarıyla verildi.");
+        // 2. Para tahsilatı (şu an simülasyon, ileride değiştirilebilir)
+        System.out.println("İlaçlar için ödeme alındı.");
+
+        // 3. İlaçları ver → stoğu düşür
+        for (int i = 0; i < medicines.size(); i++) {
+            Medicine med = medicines.get(i);
+            atmRepository.removeStock(med, 1);
+            System.out.println("Verilen ilaç: " + med.getName());
+        }
+
+        System.out.println("Tüm ilaçlar başarıyla verildi.");
     }
 }
