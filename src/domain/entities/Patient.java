@@ -21,7 +21,24 @@ public class Patient implements User {
 
 
     private List<String> allergicMedicines;
+    private String Email;
+    private String password;
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String mail) {
+        this.Email = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Patient(String name) {
         this.name = name;

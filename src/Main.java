@@ -3,6 +3,7 @@ import domain.entities.*;
 import domain.factory.*;
 import domain.interfaces.ATMRepository;
 import domain.interfaces.PrescriptionRepository;
+import domain.interfaces.User;
 import infrastructure.repositories.*;
 
 import java.util.ArrayList;
@@ -15,9 +16,16 @@ public class Main {
     static PrescriptionRepository prescriptionRepository = new TxtPrescriptionRepository();
 
     public static void main(String[] args) {
-        simulatePharmacyStockActions();         // Eczacı ilaç ekler, stok görüntüler
-        simulatePrescriptionWriteAndView();     // Doktor reçete yazar, hasta görüntüler
-        simulateDispense();                     // Hasta ATM'den ilaç alır
+//        simulatePharmacyStockActions();         // Eczacı ilaç ekler, stok görüntüler
+//        simulatePrescriptionWriteAndView();     // Doktor reçete yazar, hasta görüntüler
+//        simulateDispense();                     // Hasta ATM'den ilaç alır
+//        simulateRegister("Eren Aras","erenaras@pt.medicine", "1234");
+//        simulateRegister("Ayse","aysedursun@dr.medicine", "abcd");
+//        simulateRegister("kerem","invalid@gmail.com", "1111"); // geçersiz
+//        simulateRegister("Eren a","eren@pt.medicine", "1234"); // tekrar kayıt denemesi
+        simulateLogin("eren@pt.medicine", "1234");
+        simulateLogin("ayse@dr.medicine", "abcd");
+        simulateLogin("hata@pt.medicine", "yanlis");
     }
 
     public static void simulatePharmacyStockActions() {
@@ -42,6 +50,18 @@ public class Main {
 
         // Kullanıcı bilgisi gösterilebilir
         System.out.println("İşlem yapan: " + pharmacy.getName());
+    }
+    public static void simulateRegister(String name,String email, String password) {
+        TxtUserRepository userRepository = new TxtUserRepository();
+        RegisterUseCase registerUseCase = new RegisterUseCase(userRepository);
+
+        boolean result = registerUseCase.register(name, email, password);
+
+        if (result) {
+            System.out.println("✅ Kayıt başarılı: " + email);
+        } else {
+            System.out.println("❌ Kayıt başarısız: " + email);
+        }
     }
 
     public static void simulatePrescriptionWriteAndView() {
@@ -77,5 +97,16 @@ public class Main {
 
         DispenseMedicineUseCase dispenseUseCase = new DispenseMedicineUseCase(prescriptionRepository, atmRepository);
         dispenseUseCase.execute(prescriptionId, patient);
+    }
+    public static void simulateLogin(String email, String password) {
+        TxtUserRepository userRepository = new TxtUserRepository();
+        LoginUseCase loginUseCase = new LoginUseCase(userRepository);
+        LogUseCase logger = new LogUseCase();
+        User user = loginUseCase.login(email, password);
+
+        if (user != null) {
+            System.out.println("👤 Giriş yapan kişi: " + user.getName() + " (" + user.getClass().getSimpleName() + ")");
+            logger.log(user); // ✅ Başarılı giriş sonrası log kaydı
+        }
     }
 }

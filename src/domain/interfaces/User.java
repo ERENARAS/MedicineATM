@@ -13,4 +13,13 @@ public interface User {
      * Kullanıcı türüne göre bu davranış farklı şekilde uygulanabilir.
      */
     void login();
+
+    void setPassword(String password);
+    void setEmail(String email);
+
+    String getEmail();
+
+    String getPassword();
+
+    String getName();
 }

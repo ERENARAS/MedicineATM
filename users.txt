@@ -1,0 +1,3 @@
+erenaras@pt.medicine,Eren Aras,1234
+aysedursun@dr.medicine,Ayse,abcd
+eren@pt.medicine,Eren a,1234
