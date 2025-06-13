@@ -22,4 +22,8 @@ public class Medicine {
     public UUID getId() {
         return id;
     }
+    @Override
+    public String toString() {
+        return name;
+    }
 }

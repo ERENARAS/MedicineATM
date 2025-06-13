@@ -44,19 +44,23 @@ public class TxtUserRepository implements UserRepository {
                 if (parts.length == 3 && parts[0].equals(email)) {
                     String name = parts[1];
                     String password = parts[2];
+
                     UserFactory factory = getFactoryByEmail(email);
                     User user = factory.createUser(name);
+                    user.setEmail(email);  // Sırasını koru
                     user.setPassword(password);
-                    user.setEmail(email);
+
+                    // Debug için ekle
+                    System.out.println("✅ User bulundu ve set edildi: " + user.getEmail() + ", " + user.getName());
                     return user;
                 }
-
             }
         } catch (IOException e) {
-            // hata loglanabilir
+            System.err.println("❌ Kullanıcı bulunurken hata oluştu: " + e.getMessage());
         }
         return null;
     }
+
 
 
     @Override

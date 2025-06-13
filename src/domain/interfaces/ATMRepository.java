@@ -74,4 +74,6 @@ public interface ATMRepository {
      List<String> getStockList();
 
      Map<String, Integer> getStock();
+
+
 }

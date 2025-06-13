@@ -1,5 +1,2 @@
-bb726e8f-acaf-4932-928e-bd4c9f7b334b,2025-06-05,Eren,Zehra,Parol|Aferin
-ac87c7d3-cf79-4714-adeb-7be8d70569d8,2025-06-05,Enes,Kayra,Corsal|Aferin
-edd785c0-3323-4af2-b4e7-6e027c0eb4d3,2025-06-05,Dr. Eren,Ayşe,Parol|Aferin
-7d620d02-2abc-4b01-8694-e47656fae903,2025-06-05,Dr. Eren,Ayşe,Parol|Aferin
-
+c5346a39-b842-4077-9fac-bfe1e70631b9,2025-06-13,Eren Aras,ulaskartal@pt.medicine,Ulas Kartal,Corsal
+a586d98e-fda6-4fe7-b7e5-80a77b8cf5da,2025-06-13,Eren Aras,ulaskartal@pt.medicine,Ulas Kartal,Aferin|Vermidon

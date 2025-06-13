@@ -35,7 +35,7 @@ Veri kalıcılığı gerçek veritabanı yerine `.txt` dosyaları ile sağlanmak
 | `application/services`       | Uygulama düzeyinde destekleyici servisler (`NotificationService`, `AuthService` vb.)      |
 | `infrastructure/repositories` | Repository arayüzlerinin `.txt` dosyalarıyla çalışan implementasyonları.                  |
 | `infrastructure/services`    | Dosya sistemi, zaman, dış sistem entegrasyonları ("QR okuma, loglama").                   |
-| `presentation.controllers`   | CLI ya da kullanıcıya yönelik kontrol sınıfları.                                          |
+| `presentation.presentation.controllers.controllers`   | CLI ya da kullanıcıya yönelik kontrol sınıfları.                                          |
 | `Main.java`                  | Tüm bağımlılıkların bağlandığı ve uygulamanın başlatıldığı yer.                           |
 
 ---
