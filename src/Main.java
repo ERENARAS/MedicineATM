@@ -36,7 +36,7 @@ public class Main {
             controller.openMenu();
         }
         else {
-            System.out.println("🔒 Bu kullanıcı türü için bir menü bulunmamaktadır.");
+            System.out.println(" Bu kullanıcı türü için bir menü bulunmamaktadır.");
         }
     }
 
@@ -69,65 +69,3 @@ public class Main {
         return user;
     }
 }
-
-//
-//public static void simulatePharmacyStockActions() {
-//        // Domain nesnesi: sadece kullanıcıyı temsil eder
-//        PharmacyStaff pharmacy = (PharmacyStaff) new PharmacyFactory().createUser("Eczacı");
-//
-//        // Repository & UseCase nesneleri oluşturulur
-//
-//        AddMedicineToStockUseCase addUseCase = new AddMedicineToStockUseCase(atmRepository);
-//        ShowAllStockUseCase showUseCase = new ShowAllStockUseCase(atmRepository);
-//
-//        // İlaçlar
-//        Medicine parol = new Medicine("Parol");
-//        Medicine aferin = new Medicine("Aferin");
-//
-//        // Use case'ler doğrudan Main veya controller'dan çalıştırılır
-//        addUseCase.execute(parol, 10);
-//        addUseCase.execute(aferin, 5);
-//
-//        // Stok durumu görüntülenir
-//        showUseCase.execute();
-//
-//        // Kullanıcı bilgisi gösterilebilir
-//        System.out.println("İşlem yapan: " + pharmacy.getName());
-//    }
-//    public static void simulateRegister(String name,String email, String password) {
-//        TxtUserRepository userRepository = new TxtUserRepository();
-//        RegisterUseCase registerUseCase = new RegisterUseCase(userRepository);
-//
-//        boolean result = registerUseCase.register(name, email, password);
-//
-//        if (result) {
-//            System.out.println("✅ Kayıt başarılı: " + email);
-//        } else {
-//            System.out.println("❌ Kayıt başarısız: " + email);
-//        }
-//    }
-//
-//
-//
-//    public static void simulateDispense() {
-//        Patient patient = (Patient) new PatientFactory().createUser("Ayşe");
-//        patient.setAllergicMedicines(List.of("Aferin"));
-//        patient.setAmount(100.0f);
-//
-//        String prescriptionId = "edd785c0-3323-4af2-b4e7-6e027c0eb4d3"; // Gerçek ID'ye göre değiştir
-//
-//        DispenseMedicineUseCase dispenseUseCase = new DispenseMedicineUseCase(prescriptionRepository, atmRepository);
-//        dispenseUseCase.execute(prescriptionId, patient);
-//    }
-//    public static void simulateLogin(String email, String password) {
-//        TxtUserRepository userRepository = new TxtUserRepository();
-//        LoginUseCase loginUseCase = new LoginUseCase(userRepository);
-//        LogUseCase logger = new LogUseCase();
-//        User user = loginUseCase.login(email, password);
-//
-//        if (user != null) {
-//            System.out.println("👤 Giriş yapan kişi: " + user.getName() + " (" + user.getClass().getSimpleName() + ")");
-//            logger.log(user); // ✅ Başarılı giriş sonrası log kaydı
-//        }
-//    }
-//}
