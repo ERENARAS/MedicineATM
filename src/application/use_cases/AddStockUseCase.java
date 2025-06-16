@@ -18,6 +18,6 @@ public class AddStockUseCase {
         Map<String, Integer> stock = atm.getStock();
         stock.put(medicineName, stock.getOrDefault(medicineName, 0) + quantity);
         atmRepository.saveATM(atm);
-        System.out.println("✅ " + medicineName + " stoğa eklendi: +" + quantity);
+        System.out.println(medicineName + " stoğa eklendi: +" + quantity);
     }
 }
