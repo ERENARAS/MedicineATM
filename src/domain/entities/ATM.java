@@ -1,67 +1,40 @@
 package domain.entities;
 
-import domain.interfaces.ATMRepository;
-import domain.interfaces.PrescriptionRepository;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * ATM entity’si, benzersiz bir ID’ye sahiptir ve
- * prescriptionRepository ile reçeteyi alır,
- * atmRepository ile stok ve ücret kontrolü yapar,
- * ardından ilaçları verir.
+ * ATM sınıfı, makinede bulunan ilaçların stok bilgisini tutar.
+ * Şu an sadece tek bir ATM için çalışacak şekilde tasarlanmıştır.
  */
 public class ATM {
-    private final int id;
-    private final ATMRepository atmRepository;
-    private final PrescriptionRepository prescriptionRepository;
+    private Map<String, Integer> stock;
 
-    /**
-     * Constructor injection ile ATM ID’si ve gerekli repository’ler verilir.
-     *
-     * @param id                   ATM’in kimlik numarası
-     * @param atmRepository       Stok ve dağıtım işlemleri için repository
-     * @param prescriptionRepository Reçete erişimi için repository
-     */
-    public ATM(int id, ATMRepository atmRepository, PrescriptionRepository prescriptionRepository) {
-        this.id = id;
-        this.atmRepository = atmRepository;
-        this.prescriptionRepository = prescriptionRepository;
+    public ATM() {
+        this.stock = new HashMap<>();
     }
 
-    /**
-     * ATM’in kimlik numarasını döner.
-     */
-    public int getId() {
-        return id;
+    public Map<String, Integer> getStock() {
+        return stock;
     }
 
-    /**
-     * Verilen reçete ID’sine göre ilaç dağıtımı yapar:
-     * 1. Reçeteyi prescriptionRepository.findByID ile alır (Optional kullanarak).
-     * 2. Stok atmRepository.hasStock ile kontrol edilir.
-     * 3. Ücret atmRepository.getAmount ile hesaplanır.
-     * 4. atmRepository.dispenseMedicine ile ilaçlar teslim edilir.
-     *
-     * @param prescriptionId Reçete UUID string’i
-     */
-    public void dispense(String prescriptionId) {
-        Optional<Prescription> optRx = prescriptionRepository.findByID(prescriptionId);
-        if (optRx.isEmpty()) {
-            System.out.println("Reçete bulunamadı: " + prescriptionId);
-            return;
-        }
+    public void setStock(Map<String, Integer> stock) {
+        this.stock = stock;
+    }
 
-        Prescription prescription = optRx.get();
-        if (!atmRepository.hasStock(prescription)) {
-            System.out.println("Yeterli stok yok, işlem iptal edildi.");
-            return;
-        }
+    public int getStockFor(String medicineName) {
+        return stock.getOrDefault(medicineName, 0);
+    }
 
-        float total = atmRepository.getAmount(prescription);
-        System.out.printf("Toplam tutar: %.2f TL%n", total);
-        System.out.println("Ödeme alındı. İlaçlar veriliyor...");
+    public void increaseStock(String medicineName, int amount) {
+        int current = stock.getOrDefault(medicineName, 0);
+        stock.put(medicineName, current + amount);
+    }
 
-        atmRepository.dispenseMedicine(prescription);
-        System.out.println("İlaçlar başarıyla teslim edildi.");
+    public boolean removeStock(String medicineName, int amount) {
+        int current = stock.getOrDefault(medicineName, 0);
+        if (current < amount) return false;
+        stock.put(medicineName, current - amount);
+        return true;
     }
 }

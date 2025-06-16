@@ -43,6 +43,8 @@ public interface PrescriptionRepository {
      */
     Optional<List<Prescription>> findByPatient(Patient patient);
 
+    void delete(String id);
+
     /**
      * Reçete ID’sine göre reçete bulur.
      *
@@ -50,4 +52,5 @@ public interface PrescriptionRepository {
      * @return Reçete bulunduysa Optional.of(prescription), bulunamadıysa Optional.empty()
      */
     Optional<Prescription> findByID(String id);
+    void deleteByID(String id);
 }

@@ -8,6 +8,7 @@ import domain.interfaces.PrescriptionRepository;
 import domain.interfaces.User;
 import domain.interfaces.UserRepository;
 import infrastructure.repositories.*;
+import presentation.controllers.PharmacyController;
 
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class Main {
 
     // Ortak repository nesneleri
-    static ATMRepository atmRepository = new MockATMRepository();
+    static ATMRepository atmRepository = new TxtATMRepository();
     static PrescriptionRepository prescriptionRepository = new TxtPrescriptionRepository();
     static UserRepository userRepository = new TxtUserRepository();
 
@@ -29,7 +30,12 @@ public class Main {
         } else if (user instanceof Patient) {
             PatientController controller = new PatientController((Patient) user, prescriptionRepository);
             controller.run();
-        } else {
+        }
+        else if (user instanceof PharmacyStaff) {
+            PharmacyController controller = new PharmacyController((PharmacyStaff) user, atmRepository);
+            controller.openMenu();
+        }
+        else {
             System.out.println("🔒 Bu kullanıcı türü için bir menü bulunmamaktadır.");
         }
     }

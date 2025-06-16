@@ -4,7 +4,7 @@ import application.use_cases.DispenseMedicineUseCase;
 import domain.entities.Patient;
 import domain.entities.Prescription;
 import domain.interfaces.PrescriptionRepository;
-import infrastructure.repositories.MockATMRepository;
+import infrastructure.repositories.TxtATMRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -98,7 +98,7 @@ public class PatientController {
         String id = scanner.nextLine();
         try {
             UUID uuid = UUID.fromString(id);
-            DispenseMedicineUseCase useCase = new DispenseMedicineUseCase(prescriptionRepository, new MockATMRepository());
+            DispenseMedicineUseCase useCase = new DispenseMedicineUseCase(prescriptionRepository, new TxtATMRepository());
             useCase.execute(id, patient);
         } catch (Exception e) {
             System.out.println("❌ Hata: " + e.getMessage());

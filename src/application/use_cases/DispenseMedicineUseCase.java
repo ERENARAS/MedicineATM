@@ -1,19 +1,16 @@
 package application.use_cases;
 
-import domain.entities.*;
+import domain.entities.ATM;
+import domain.entities.Medicine;
+import domain.entities.Patient;
+import domain.entities.Prescription;
 import domain.interfaces.ATMRepository;
 import domain.interfaces.PrescriptionRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-/**
- * DispenseMedicineUseCase, bir hastanın ATM üzerinden ilaç almasını sağlar.
- *
- * Hasta, reçete ID’sini veya QR kodunu kullanarak ATM’ye başvurur.
- * Sistem reçeteyi doğrular, toplam tutarı hesaplar, hastanın bakiyesini kontrol eder,
- * ATM’deki stoğu kontrol eder ve ardından ilaçları verir.
- */
 public class DispenseMedicineUseCase {
 
     private final PrescriptionRepository prescriptionRepository;
@@ -25,58 +22,50 @@ public class DispenseMedicineUseCase {
         this.atmRepository = atmRepository;
     }
 
-    /**
-     * Reçete doğrulanır, ödeme kontrol edilir, stok kontrolü yapılır ve ilaçlar dağıtılır.
-     *
-     * @param prescriptionId Reçete ID’si
-     * @param patient        İlacı alacak hasta
-     */
     public void execute(String prescriptionId, Patient patient) {
         Optional<Prescription> optionalPrescription = prescriptionRepository.findByID(prescriptionId);
-
         if (optionalPrescription.isEmpty()) {
-            System.out.println("Reçete bulunamadı.");
+            System.out.println("❌ Reçete bulunamadı.");
             return;
         }
-
         Prescription prescription = optionalPrescription.get();
 
-        String prescription_patient_name = prescription.getPatient().getName();
-        String patient_name = patient.getName();
-        // Hasta uyuşuyor mu?
-        if (!prescription_patient_name.equals(patient_name)) {
-            System.out.println("Reçete bu hastaya ait değil.");
+        if (!prescription.getPatient().getEmail().equals(patient.getEmail())) {
+            System.out.println("❌ Reçete bu hastaya ait değil.");
             return;
         }
 
+        ATM atm = atmRepository.load();
+        Map<String, Integer> stock = atm.getStock();
         List<Medicine> medicines = prescription.getMedicines();
-        boolean stockAvailable = true;
 
         // 1. Stok kontrolü
-        for (int i = 0; i < medicines.size(); i++) {
-            Medicine med = medicines.get(i);
-            int stock = atmRepository.getStockMedicine(med);
-            if (stock <= 0) {
-                System.out.println("Stokta bulunmayan ilaç: " + med.getName());
-                stockAvailable = false;
+        for (Medicine med : medicines) {
+            String name = med.getName();
+            int available = stock.getOrDefault(name, 0);
+            if (available <= 0) {
+                System.out.println("⚠️ Stokta yok: " + name);
+                System.out.println("❌ Dağıtım iptal edildi.");
+                return;
             }
         }
 
-        if (!stockAvailable) {
-            System.out.println("Bazı ilaçlar stokta yok. Dağıtım iptal edildi.");
-            return;
+        // 2. Ödeme işlemi (şu an simülasyon)
+        System.out.println("💳 Ödeme başarıyla alındı.");
+
+        // 3. Dağıtım ve stok düşürme
+        for (Medicine med : medicines) {
+            String name = med.getName();
+            stock.put(name, stock.get(name) - 1);
+            System.out.println("✅ Verilen ilaç: " + name);
         }
 
-        // 2. Para tahsilatı (şu an simülasyon, ileride değiştirilebilir)
-        System.out.println("İlaçlar için ödeme alındı.");
+        // 4. Stok kaydet
+        atmRepository.saveATM(atm);
 
-        // 3. İlaçları ver → stoğu düşür
-        for (int i = 0; i < medicines.size(); i++) {
-            Medicine med = medicines.get(i);
-            atmRepository.removeStock(med, 1);
-            System.out.println("Verilen ilaç: " + med.getName());
-        }
+        // 5. Reçeteyi sil
+        prescriptionRepository.delete(prescriptionId);
 
-        System.out.println("Tüm ilaçlar başarıyla verildi.");
+        System.out.println("🎉 Tüm ilaçlar başarıyla verildi. Reçete silindi.");
     }
 }

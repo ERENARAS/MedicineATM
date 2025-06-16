@@ -1,0 +1,4 @@
+Vermidon,2
+Parol,10
+Corsal,3
+Aferin,10

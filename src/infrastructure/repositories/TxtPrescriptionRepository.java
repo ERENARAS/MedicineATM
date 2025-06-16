@@ -96,6 +96,62 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
 
         return result.isEmpty() ? Optional.empty() : Optional.of(result);
     }
+    @Override
+    public void deleteByID(String id) {
+        List<Prescription> all = getAll();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Prescription p : all) {
+                if (!p.getId().toString().equals(id)) {
+                    StringBuilder line = new StringBuilder();
+                    line.append(p.getId().toString()).append(",");
+                    line.append(p.getDate().toString()).append(",");
+                    line.append(p.getDoctor().getName()).append(",");
+                    line.append(p.getPatient().getName()).append(",");
+
+                    List<Medicine> meds = p.getMedicines();
+                    for (int i = 0; i < meds.size(); i++) {
+                        line.append(meds.get(i).getName());
+                        if (i < meds.size() - 1) {
+                            line.append("|");
+                        }
+                    }
+
+                    writer.write(line.toString());
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Silme sırasında hata oluştu: " + e.getMessage());
+        }
+    }
+    @Override
+    public void delete(String id) {
+        List<String> updatedLines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("prescriptions.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Reçetenin ID'siyle başlıyorsa ve silinecek ID değilse listeye ekle
+                if (!line.trim().isEmpty() && !line.startsWith(id + ",")) {
+                    updatedLines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Reçete silme hatası: " + e.getMessage());
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("prescriptions.txt", false))) {
+            for (String updatedLine : updatedLines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Reçete dosyası güncellenemedi: " + e.getMessage());
+        }
+    }
+
+
 
     @Override
     public Optional<Prescription> findByID(String id) {
