@@ -13,7 +13,14 @@ import java.util.*;
  */
 public class TxtPrescriptionRepository implements PrescriptionRepository {
 
-    private final String filePath = "prescriptions.txt";
+    private String filePath = "prescriptions.txt";
+
+    public TxtPrescriptionRepository() {
+        this.filePath = "users.txt";
+    }
+    public TxtPrescriptionRepository(String filePath){
+        this.filePath = filePath;
+    }
 
     @Override
     public void save(Prescription prescription) {

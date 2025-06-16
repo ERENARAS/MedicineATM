@@ -1,0 +1,4 @@
+TC1;LOGIN;student@uni.com;1234;false
+TC2;LOGIN;student@uni.com;wrong;false
+TC3;ADD_STOCK;Parol;10;10
+TC4;DISPENSE;presc1;patient1@example.com;true

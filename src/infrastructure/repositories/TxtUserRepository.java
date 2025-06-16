@@ -16,7 +16,13 @@ import java.io.*;
  * gerçekleştiren UserRepository implementasyonudur.
  */
 public class TxtUserRepository implements UserRepository {
-    private final String filePath = "users.txt";
+    private String filePath = "users.txt";
+    public TxtUserRepository() {
+        this.filePath = "users.txt";
+    }
+    public TxtUserRepository(String filePath){
+        this.filePath = filePath;
+    }
 
     @Override
     public boolean save(User user) {

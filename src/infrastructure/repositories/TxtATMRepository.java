@@ -13,7 +13,14 @@ import java.util.Map;
 
 public class TxtATMRepository implements ATMRepository {
 
-    private static final String FILE_PATH = "atm.txt";
+    private static String FILE_PATH = "atm.txt";
+
+    public TxtATMRepository() {
+        this.FILE_PATH = "users.txt";
+    }
+    public TxtATMRepository(String filePath){
+        this.FILE_PATH = filePath;
+    }
 
     @Override
     public ATM load() {
@@ -47,5 +54,14 @@ public class TxtATMRepository implements ATMRepository {
         catch (IOException e) {
             System.out.println("ATM dosyasına yazılamadı: " + e.getMessage());
         }
+    }
+    /**
+     * Test/sınıf içi hızlı erişim için stok bilgisini getirir.
+     * @param medicine İlacın adı
+     * @return Mevcut stok miktarı (ilac bulunamazsa 0)
+     */
+    public int getStock(String medicine) {
+        ATM atm = load();
+        return atm.getStock().getOrDefault(medicine, 0);
     }
 }

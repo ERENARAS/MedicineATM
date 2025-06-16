@@ -1,11 +1,2 @@
-erenaras@pt.medicine,Eren Aras,1234
-aysedursun@dr.medicine,Ayse,abcd
-eren@pt.medicine,Eren a,1234
-erenaras16@dr.medicine,Eren Aras,12345
-nihataras@pt.medicine,Nihat Aras,null
-ulaskartal@pt.medicine,Ulas Kartal,123ulas
-zehraalaskarova@dr.medicine,DRZehra,zehra123
-erenaras1@dr.medicine,Eren ,12345
-meric@dr.medicine,Meric AY,meric123
-erenaras@ph.medicine,Eren,1234
-zehra@pt.medicine,Zehra Alaskarova,null
+ulaskartal@pt.medicine,1234
+Parol,10
