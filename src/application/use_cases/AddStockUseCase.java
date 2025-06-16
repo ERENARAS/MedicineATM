@@ -1,14 +1,11 @@
-// application/use_cases/AddStockUseCase.java
 package application.use_cases;
 
 import domain.entities.ATM;
 import domain.interfaces.ATMRepository;
-
 import java.util.Map;
 
 public class AddStockUseCase {
     private final ATMRepository atmRepository;
-
     public AddStockUseCase(ATMRepository atmRepository) {
         this.atmRepository = atmRepository;
     }

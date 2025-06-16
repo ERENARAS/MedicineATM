@@ -16,9 +16,9 @@ public class LogUseCase {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFilePath, true))) {
             writer.write(line);
             writer.newLine();
-            System.out.println("📄 Giriş loglandı: " + line);
+            System.out.println(" Giriş loglandı: " + line);
         } catch (IOException e) {
-            System.out.println("❌ Log dosyasına yazarken hata oluştu.");
+            System.out.println(" Log dosyasına yazarken hata oluştu.");
         }
     }
 }

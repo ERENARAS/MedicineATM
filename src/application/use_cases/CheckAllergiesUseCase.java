@@ -2,7 +2,6 @@ package application.use_cases;
 
 import domain.entities.Medicine;
 import domain.entities.Patient;
-
 import java.util.List;
 /**
  * CheckPatientAllergiesUseCase arayüzü, bir ilacın hastanın alerji listesiyle çakışıp çakışmadığını kontrol eder.

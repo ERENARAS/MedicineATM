@@ -34,7 +34,7 @@ public class WritePrescriptionUseCase {
         for (int i = 0; i < meds.size(); i++) {
             Medicine med = meds.get(i);
             if (allergies.contains(med.getName())) {
-                throw new RuntimeException("⚠ Reçete başarısız: Hasta '" + med.getName() + "' ilacına alerjiktir.");
+                throw new RuntimeException(" Reçete başarısız: Hasta '" + med.getName() + "' ilacına alerjiktir.");
             }
         }
 

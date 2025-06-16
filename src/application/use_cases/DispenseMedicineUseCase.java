@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class DispenseMedicineUseCase {
-
     private final PrescriptionRepository prescriptionRepository;
     private final ATMRepository atmRepository;
 
@@ -25,13 +24,13 @@ public class DispenseMedicineUseCase {
     public void execute(String prescriptionId, Patient patient) {
         Optional<Prescription> optionalPrescription = prescriptionRepository.findByID(prescriptionId);
         if (optionalPrescription.isEmpty()) {
-            System.out.println("❌ Reçete bulunamadı.");
+            System.out.println(" Reçete bulunamadı.");
             return;
         }
         Prescription prescription = optionalPrescription.get();
 
         if (!prescription.getPatient().getEmail().equals(patient.getEmail())) {
-            System.out.println("❌ Reçete bu hastaya ait değil.");
+            System.out.println(" Reçete bu hastaya ait değil.");
             return;
         }
 
@@ -44,20 +43,20 @@ public class DispenseMedicineUseCase {
             String name = med.getName();
             int available = stock.getOrDefault(name, 0);
             if (available <= 0) {
-                System.out.println("⚠️ Stokta yok: " + name);
-                System.out.println("❌ Dağıtım iptal edildi.");
+                System.out.println(" Stokta yok: " + name);
+                System.out.println(" Dağıtım iptal edildi.");
                 return;
             }
         }
 
-        // 2. Ödeme işlemi (şu an simülasyon)
-        System.out.println("💳 Ödeme başarıyla alındı.");
+        // 2. Ödeme işlemi
+        System.out.println(" Ödeme başarıyla alındı.");
 
         // 3. Dağıtım ve stok düşürme
         for (Medicine med : medicines) {
             String name = med.getName();
             stock.put(name, stock.get(name) - 1);
-            System.out.println("✅ Verilen ilaç: " + name);
+            System.out.println(" Verilen ilaç: " + name);
         }
 
         // 4. Stok kaydet
@@ -66,6 +65,6 @@ public class DispenseMedicineUseCase {
         // 5. Reçeteyi sil
         prescriptionRepository.delete(prescriptionId);
 
-        System.out.println("🎉 Tüm ilaçlar başarıyla verildi. Reçete silindi.");
+        System.out.println(" Tüm ilaçlar başarıyla verildi. Reçete silindi.");
     }
 }

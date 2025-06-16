@@ -9,6 +9,12 @@ import domain.interfaces.UserRepository;
 
 import java.io.*;
 
+/**
+ * TxtUserRepository sınıfı, "users.txt" dosyasını kullanarak
+ * uygulamadaki kullanıcı (Doctor, Patient, Pharmacy) kayıtlarını
+ * dosyaya yazma, dosyadan okuma ve temel doğrulama işlemlerini
+ * gerçekleştiren UserRepository implementasyonudur.
+ */
 public class TxtUserRepository implements UserRepository {
     private final String filePath = "users.txt";
 
@@ -19,19 +25,22 @@ public class TxtUserRepository implements UserRepository {
             writer.write(user.getEmail() + "," + user.getName() + "," + user.getPassword());
             writer.newLine();
             return true;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return false;
         }
     }
-
     private UserFactory getFactoryByEmail(String email) {
         if (email.endsWith("@dr.medicine")) {
             return new DoctorFactory();
-        } else if (email.endsWith("@pt.medicine")) {
+        }
+        else if (email.endsWith("@pt.medicine")) {
             return new PatientFactory();
-        } else if (email.endsWith("@ph.medicine")) {
+        }
+        else if (email.endsWith("@ph.medicine")) {
             return new PharmacyFactory();
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("Unknown user type: " + email);
         }
     }
@@ -51,12 +60,13 @@ public class TxtUserRepository implements UserRepository {
                     user.setPassword(password);
 
                     // Debug için ekle
-                    System.out.println("✅ User bulundu ve set edildi: " + user.getEmail() + ", " + user.getName());
+                    System.out.println(" User bulundu ve set edildi: " + user.getEmail() + ", " + user.getName());
                     return user;
                 }
             }
-        } catch (IOException e) {
-            System.err.println("❌ Kullanıcı bulunurken hata oluştu: " + e.getMessage());
+        }
+        catch (IOException e) {
+            System.err.println(" Kullanıcı bulunurken hata oluştu: " + e.getMessage());
         }
         return null;
     }

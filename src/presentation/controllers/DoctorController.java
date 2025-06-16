@@ -29,7 +29,7 @@ public class DoctorController {
     public void openMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n👨‍⚕️ Doktor Menüsü:");
+            System.out.println("\n Doktor Menüsü:");
             System.out.println("1. Hasta Oluştur / Seç");
             System.out.println("2. Alerji Ekle (hastaya)");
             System.out.println("3. Reçete Yaz");
@@ -49,7 +49,7 @@ public class DoctorController {
                     writePrescription();
                     break;
                 case 0:
-                    System.out.println("👋 Çıkış yapılıyor...");
+                    System.out.println(" Çıkış yapılıyor...");
                     return;
                 default:
                     System.out.println("Geçersiz seçim.");
@@ -66,7 +66,7 @@ public class DoctorController {
         User user = userRepository.findByEmail(patientEmail);
         if (user instanceof Patient) {
             currentPatient = (Patient) user;
-            System.out.println("✅ Kayıtlı hasta bulundu: " + currentPatient.getName());
+            System.out.println(" Kayıtlı hasta bulundu: " + currentPatient.getName());
             return;
         }
 
@@ -80,11 +80,11 @@ public class DoctorController {
 
         boolean saved = userRepository.save(patient);
         if (!saved) {
-            System.out.println("⚠ Hasta kaydedilemedi. Belki zaten kayıtlı?");
+            System.out.println(" Hasta kaydedilemedi. Belki zaten kayıtlı?");
         }
 
         currentPatient = patient;
-        System.out.println("✅ Yeni hasta oluşturuldu: " + patient.getName());
+        System.out.println(" Yeni hasta oluşturuldu: " + patient.getName());
     }
 
 
@@ -105,12 +105,12 @@ public class DoctorController {
             allergies.add(scanner.nextLine());
         }
         currentPatient.setAllergicMedicines(allergies);
-        System.out.println("✅ Alerjiler eklendi.");
+        System.out.println(" Alerjiler eklendi.");
     }
 
     private void writePrescription() {
         if (currentPatient == null) {
-            System.out.println("⚠ Önce bir hasta seçmelisiniz.");
+            System.out.println(" Önce bir hasta seçmelisiniz.");
             return;
         }
 
@@ -133,6 +133,6 @@ public class DoctorController {
         WritePrescriptionUseCase useCase = new WritePrescriptionUseCase(repo);
         useCase.execute(prescription);
 
-        System.out.println("✅ Reçete yazıldı ve kaydedildi: " + prescription.getId());
+        System.out.println(" Reçete yazıldı ve kaydedildi: " + prescription.getId());
     }
 }

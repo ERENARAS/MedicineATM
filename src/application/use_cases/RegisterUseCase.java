@@ -13,12 +13,12 @@ public class RegisterUseCase {
 
     public boolean register(String name, String email, String password) {
         if (!isValidEmail(email)) {
-            System.out.println("❌ Geçersiz e-posta uzantısı.");
+            System.out.println(" Geçersiz e-posta uzantısı.");
             return false;
         }
 
         if (userRepository.existsByEmail(email)) {
-            System.out.println("❌ Bu e-posta ile kayıtlı kullanıcı zaten var.");
+            System.out.println(" Bu e-posta ile kayıtlı kullanıcı zaten var.");
             return false;
         }
 
@@ -44,6 +44,6 @@ public class RegisterUseCase {
         if (email.endsWith("@ph.medicine")) {
             return new domain.factory.PharmacyFactory();
         }
-        throw new IllegalArgumentException("❌ Tanınmayan kullanıcı tipi: " + email);
+        throw new IllegalArgumentException(" Tanınmayan kullanıcı tipi: " + email);
     }
 }

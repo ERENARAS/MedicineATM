@@ -23,7 +23,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
             line.append(prescription.getId().toString()).append(",");
             line.append(prescription.getDate().toString()).append(",");
             line.append(prescription.getDoctor().getName()).append(",");
-            line.append(prescription.getPatient().getEmail()).append(",");  // eklendi
+            line.append(prescription.getPatient().getEmail()).append(",");
             line.append(prescription.getPatient().getName()).append(",");
 
             List<Medicine> medicines = prescription.getMedicines();
@@ -53,7 +53,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",", 6); // e-posta eklendiği için 6 parçaya ayrıldı
+                String[] parts = line.split(",", 6);
 
                 if (parts.length < 6) continue;
 
@@ -64,7 +64,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
                 String patientEmail = parts[3];
                 String patientName = parts[4];
                 Patient patient = new Patient(patientName);
-                patient.setEmail(patientEmail); // ✅ Email set ediliyor
+                patient.setEmail(patientEmail);
 
                 String[] medNames = parts[5].split("\\|");
                 List<Medicine> medicines = new ArrayList<>();
@@ -76,7 +76,8 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
             }
 
             reader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("Dosya okunurken hata oluştu: " + e.getMessage());
         }
 
@@ -121,8 +122,9 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
-            System.out.println("❌ Silme sırasında hata oluştu: " + e.getMessage());
+        }
+        catch (IOException e) {
+            System.out.println(" Silme sırasında hata oluştu: " + e.getMessage());
         }
     }
     @Override
@@ -137,7 +139,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
                 }
             }
         } catch (IOException e) {
-            System.out.println("❌ Reçete silme hatası: " + e.getMessage());
+            System.out.println(" Reçete silme hatası: " + e.getMessage());
             return;
         }
 
@@ -147,7 +149,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("❌ Reçete dosyası güncellenemedi: " + e.getMessage());
+            System.out.println(" Reçete dosyası güncellenemedi: " + e.getMessage());
         }
     }
 

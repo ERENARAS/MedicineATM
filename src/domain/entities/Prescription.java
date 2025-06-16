@@ -18,9 +18,6 @@ public class Prescription {
     private LocalDate date;
     private Doctor doctor;
     private Patient patient;
-
-
-
     private List<Medicine> medicines;
 
     /**

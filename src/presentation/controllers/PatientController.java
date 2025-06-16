@@ -47,11 +47,11 @@ public class PatientController {
                     dispenseMedicine();
                     break;
                 case 5 :
-                    System.out.println("👋 Görüşmek üzere!");
+                    System.out.println(" Görüşmek üzere!");
                     return;
 
                 default :
-                    System.out.println("❌ Geçersiz seçim!");
+                    System.out.println(" Geçersiz seçim!");
                     break;
             }
         }
@@ -59,7 +59,7 @@ public class PatientController {
 
     private void viewPrescriptions() {
         List<Prescription> list = prescriptionRepository.getAll();
-        System.out.println("\n📋 Reçeteleriniz:");
+        System.out.println("\n Reçeteleriniz:");
         boolean found = false;
         for (Prescription p : list) {
             String mail = patient.getEmail();
@@ -71,15 +71,15 @@ public class PatientController {
                 found = true;
             }
         }
-        if (!found) System.out.println("🔍 Reçete bulunamadı.");
+        if (!found) System.out.println(" Reçete bulunamadı.");
     }
 
     private void viewAllergies() {
         List<String> allergies = patient.getAllergicMedicines();
         if (allergies.isEmpty()) {
-            System.out.println("🔍 Kayıtlı alerji yok.");
+            System.out.println(" Kayıtlı alerji yok.");
         } else {
-            System.out.println("💊 Alerjileriniz:");
+            System.out.println(" Alerjileriniz:");
             for (String allergy : allergies) {
                 System.out.println("- " + allergy);
             }
@@ -90,7 +90,7 @@ public class PatientController {
         System.out.print("Yeni alerji ekleyin: ");
         String allergy = scanner.nextLine();
         patient.getAllergicMedicines().add(allergy);
-        System.out.println("✅ Alerji eklendi.");
+        System.out.println(" Alerji eklendi.");
     }
 
     private void dispenseMedicine() {
@@ -101,7 +101,7 @@ public class PatientController {
             DispenseMedicineUseCase useCase = new DispenseMedicineUseCase(prescriptionRepository, new TxtATMRepository());
             useCase.execute(id, patient);
         } catch (Exception e) {
-            System.out.println("❌ Hata: " + e.getMessage());
+            System.out.println(" Hata: " + e.getMessage());
         }
     }
 }

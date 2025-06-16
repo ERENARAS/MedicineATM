@@ -1,4 +1,3 @@
-// infrastructure/repositories/TxtATMRepository.java
 package infrastructure.repositories;
 
 import domain.entities.ATM;
@@ -7,6 +6,10 @@ import domain.interfaces.ATMRepository;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * TxtATMRepository sınıfı, ATM stok verilerini TXT formatında saklamak ve
+ * geri yüklemek için kullanılan bir infrastructure repository implementasyonudur.
+ */
 
 public class TxtATMRepository implements ATMRepository {
 
@@ -25,7 +28,8 @@ public class TxtATMRepository implements ATMRepository {
                     stock.put(parts[0].trim(), Integer.parseInt(parts[1].trim()));
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("ATM dosyası okunamadı: " + e.getMessage());
         }
 
@@ -39,7 +43,8 @@ public class TxtATMRepository implements ATMRepository {
             for (Map.Entry<String, Integer> entry : atm.getStock().entrySet()) {
                 writer.println(entry.getKey() + "," + entry.getValue());
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("ATM dosyasına yazılamadı: " + e.getMessage());
         }
     }

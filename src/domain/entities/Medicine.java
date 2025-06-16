@@ -7,10 +7,7 @@ import java.util.UUID;
  * Her Medicine nesnesi, reçetede yer alabilir ve ATM üzerinden hastaya verilebilir.
  */
 public class Medicine {
-
-
     private final String  name;
-
     private final UUID id;
     public Medicine(String name){
         this.name = name;

@@ -3,8 +3,6 @@ package domain.entities;
 import domain.interfaces.User;
 
 public class SystemAdministrator implements User {
-
-
     private String name;
     private String Email;
     private String password;

@@ -13,13 +13,7 @@ import java.util.List;
  */
 public class Patient implements User {
     private String name;
-
-
-
     private float amount;
-
-
-
     private List<String> allergicMedicines;
     private String Email;
     private String password;

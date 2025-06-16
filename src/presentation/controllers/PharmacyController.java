@@ -1,4 +1,3 @@
-// presentation/controllers/PharmacyController.java
 package presentation.controllers;
 
 import application.use_cases.AddStockUseCase;
@@ -19,7 +18,7 @@ public class PharmacyController {
     public void openMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n🏥 Pharmacy Menu");
+            System.out.println("\n Pharmacy Menu");
             System.out.println("1. ATM Stok Güncelle");
             System.out.println("0. Çıkış");
             System.out.print("Seçiminiz: ");
@@ -28,7 +27,8 @@ public class PharmacyController {
 
             if (choice == 1) {
                 addStock();
-            } else if (choice == 0) {
+            }
+            else if (choice == 0) {
                 break;
             }
         }
