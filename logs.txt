@@ -32,3 +32,6 @@ ulaskartal@pt.medicine,2025-06-16T15:28:11.377157800
 erenaras16@dr.medicine,2025-06-16T15:30:08.771683800
 erenaras16@dr.medicine,2025-06-16T15:32:35.903394100
 erenaras@ph.medicine,2025-06-16T15:46:02.351075900
+ulaskartaL@dr.medicine,2025-06-16T18:59:56.377161100
+ulaskartaL@dr.medicine,2025-06-16T19:00:25.225091400
+ulaskartaL@dr.medicine,2025-06-16T19:01:00.602924200

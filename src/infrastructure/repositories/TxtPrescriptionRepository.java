@@ -16,7 +16,7 @@ public class TxtPrescriptionRepository implements PrescriptionRepository {
     private String filePath = "prescriptions.txt";
 
     public TxtPrescriptionRepository() {
-        this.filePath = "users.txt";
+        this.filePath = "prescriptions.txt";
     }
     public TxtPrescriptionRepository(String filePath){
         this.filePath = filePath;

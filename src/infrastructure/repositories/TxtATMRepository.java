@@ -16,7 +16,7 @@ public class TxtATMRepository implements ATMRepository {
     private static String FILE_PATH = "atm.txt";
 
     public TxtATMRepository() {
-        this.FILE_PATH = "users.txt";
+        this.FILE_PATH = "atm.txt";
     }
     public TxtATMRepository(String filePath){
         this.FILE_PATH = filePath;
