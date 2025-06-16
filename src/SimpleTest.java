@@ -7,12 +7,10 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class SimpleTest {
 
     public static void main(String[] args) throws IOException {
-        // 1. Test dosyalarını hazırlayıp ana dosya isimlerine kopyala
         Files.copy(Paths.get("test_users.txt"), Paths.get("users.txt"), REPLACE_EXISTING);
         Files.copy(Paths.get("test_atm.txt"), Paths.get("atm.txt"), REPLACE_EXISTING);
         Files.copy(Paths.get("test_prescriptions.txt"), Paths.get("prescriptions.txt"), REPLACE_EXISTING);
 
-        // 2. Senaryoları okuyup çalıştır
         List<String> lines = Files.readAllLines(Paths.get("testcases.txt"));
         for (String line : lines) {
             runTest(line);
@@ -27,21 +25,24 @@ public class SimpleTest {
         String p1;
         if (parts.length > 2) {
             p1 = parts[2];
-        } else {
+        }
+        else {
             p1 = "";
         }
 
         String p2;
         if (parts.length > 3) {
             p2 = parts[3];
-        } else {
+        }
+        else {
             p2 = "";
         }
 
         String exp;
         if (parts.length > 4) {
             exp = parts[4];
-        } else {
+        }
+        else {
             exp = "";
         }
 
@@ -55,7 +56,8 @@ public class SimpleTest {
                 int stock = addStock(p1, Integer.parseInt(p2));
                 if (Integer.parseInt(exp) < stock) {
                     pass = true;
-                } else {
+                }
+                else {
                     pass = false;
                 }
                 break;
@@ -72,7 +74,8 @@ public class SimpleTest {
 
         if (pass) {
             System.out.println(id + ": PASS");
-        } else {
+        }
+        else {
             System.out.println(id + ": FAIL");
         }
     }
@@ -134,7 +137,8 @@ public class SimpleTest {
                     && cols[1].equals(patientEmail)
                     && !removed) {
                 removed = true;
-            } else {
+            }
+            else {
                 kept.add(line);
             }
         }
